@@ -126,10 +126,10 @@ downloadBtn.addEventListener('click', () => {
 function scrapeYahooGainers() {
   try {
     const stocks = [];
-    
+
     // Find the table with the specific class
     const table = document.querySelector('table.yf-1bwepqw');
-    
+
     if (!table) {
       return { error: 'Table not found. Make sure you\'re on the Yahoo Finance Gainers page.' };
     }
@@ -227,4 +227,3 @@ function scrapeYahooGainers() {
     return { error: `Scraping error: ${err.message}` };
   }
 }
-

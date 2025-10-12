@@ -62,19 +62,19 @@
 </head>
 <body>
   <h1>📈 Generate Extension Icons</h1>
-  
+
   <div class="container">
     <p>Click the button below to generate all required icon sizes for the Chrome extension.</p>
-    
+
     <div class="preview">
       <canvas id="preview16" width="16" height="16"></canvas>
       <canvas id="preview32" width="32" height="32"></canvas>
       <canvas id="preview48" width="48" height="48"></canvas>
       <canvas id="preview128" width="128" height="128"></canvas>
     </div>
-    
+
     <button onclick="generateAllIcons()">Generate & Download All Icons</button>
-    
+
     <div id="status"></div>
   </div>
 
@@ -92,23 +92,23 @@
     // Draw icon on canvas
     function drawIcon(canvas, size) {
       const ctx = canvas.getContext('2d');
-      
+
       // Background
       ctx.fillStyle = '#1db954';
       ctx.fillRect(0, 0, size, size);
-      
+
       // Chart-like design
       const padding = size * 0.15;
       const barWidth = (size - padding * 4) / 3;
       const maxHeight = size - padding * 2;
-      
+
       // Draw three bars (like a rising chart)
       const bars = [
         { x: padding, height: maxHeight * 0.5 },
         { x: padding * 2 + barWidth, height: maxHeight * 0.7 },
         { x: padding * 3 + barWidth * 2, height: maxHeight * 0.9 }
       ];
-      
+
       ctx.fillStyle = '#000000';
       bars.forEach(bar => {
         ctx.fillRect(
@@ -118,12 +118,12 @@
           bar.height
         );
       });
-      
+
       // Add upward arrow
       const arrowSize = size * 0.12;
       const arrowX = size - padding - arrowSize;
       const arrowY = padding;
-      
+
       ctx.beginPath();
       ctx.moveTo(arrowX + arrowSize / 2, arrowY);
       ctx.lineTo(arrowX, arrowY + arrowSize);
@@ -131,15 +131,15 @@
       ctx.closePath();
       ctx.fill();
     }
-    
+
     // Generate and download icon
     function downloadIcon(size) {
       const canvas = document.createElement('canvas');
       canvas.width = size;
       canvas.height = size;
-      
+
       drawIcon(canvas, size);
-      
+
       return new Promise((resolve) => {
         canvas.toBlob((blob) => {
           const url = URL.createObjectURL(blob);
@@ -154,29 +154,29 @@
         });
       });
     }
-    
+
     // Generate all icons
     async function generateAllIcons() {
       const status = document.getElementById('status');
       status.innerHTML = '<p>Generating icons...</p>';
-      
+
       const sizes = [16, 32, 48, 128];
-      
+
       // Preview all sizes first
       sizes.forEach(size => {
         const canvas = document.getElementById(`preview${size}`);
         drawIcon(canvas, size);
       });
-      
+
       // Download all sizes
       for (const size of sizes) {
         await downloadIcon(size);
         await new Promise(resolve => setTimeout(resolve, 200)); // Small delay between downloads
       }
-      
+
       status.innerHTML = '<p class="success">✓ All icons generated! Check your Downloads folder.</p><p>Move the 4 PNG files to the icons/ folder in your extension directory.</p>';
     }
-    
+
     // Draw previews on load
     window.onload = function() {
       [16, 32, 48, 128].forEach(size => {
@@ -187,4 +187,3 @@
   </script>
 </body>
 </html>
-

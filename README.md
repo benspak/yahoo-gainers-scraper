@@ -29,15 +29,15 @@ A Chrome extension that scrapes top stock gainers from Yahoo Finance and exports
    ```
 
 2. **Create Extension Icons**
-   
+
    Before loading the extension, you need to create icon files. You can:
-   
+
    - **Option A:** Use any icon generator or create your own PNG icons:
      - Create `icons/icon16.png` (16x16px)
      - Create `icons/icon32.png` (32x32px)
      - Create `icons/icon48.png` (48x48px)
      - Create `icons/icon128.png` (128x128px)
-   
+
    - **Option B:** Use a temporary placeholder (quick start):
      ```bash
      # macOS/Linux - Create a simple colored square as placeholder
@@ -211,4 +211,3 @@ MIT License - Feel free to use and modify for your needs.
 ---
 
 **Made for founders and investors who need quick access to market data.** 🚀
-
