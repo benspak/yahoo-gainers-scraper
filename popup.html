@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yahoo Finance Gainers Scraper</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📈 Yahoo Gainers Scraper</h1>
+      <p class="subtitle">Extract top stock gainers from Yahoo Finance</p>
+    </header>
+
+    <div class="content">
+      <div id="status" class="status hidden">
+        <div class="spinner"></div>
+        <span id="statusText">Scraping data...</span>
+      </div>
+
+      <div id="result" class="result hidden">
+        <div class="success-icon">✓</div>
+        <p id="resultText"></p>
+      </div>
+
+      <div id="error" class="error hidden">
+        <div class="error-icon">✕</div>
+        <p id="errorText"></p>
+      </div>
+
+      <button id="scrapeBtn" class="btn-primary">
+        <span class="btn-icon">🔍</span>
+        Scrape Gainers
+      </button>
+
+      <button id="downloadBtn" class="btn-secondary hidden">
+        <span class="btn-icon">💾</span>
+        Download JSON
+      </button>
+    </div>
+
+    <footer>
+      <p class="footer-text">Make sure you're on the Yahoo Finance Gainers page</p>
+      <a href="https://finance.yahoo.com/markets/stocks/gainers/" target="_blank" class="link">
+        Open Yahoo Finance Gainers →
+      </a>
+    </footer>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
+

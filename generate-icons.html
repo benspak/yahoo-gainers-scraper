@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generate Extension Icons</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #121212;
+      color: #fff;
+    }
+    h1 {
+      color: #1db954;
+    }
+    .container {
+      background: #181818;
+      padding: 30px;
+      border-radius: 12px;
+      margin: 20px 0;
+    }
+    button {
+      background: #1db954;
+      color: #000;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 500px;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 10px;
+      font-size: 14px;
+    }
+    button:hover {
+      background: #1ed760;
+    }
+    .preview {
+      display: flex;
+      gap: 20px;
+      margin: 20px 0;
+      align-items: center;
+    }
+    canvas {
+      border: 1px solid #333;
+      border-radius: 8px;
+    }
+    .instructions {
+      background: #282828;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+      border-left: 4px solid #1db954;
+    }
+    .success {
+      color: #1db954;
+      font-weight: bold;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>📈 Generate Extension Icons</h1>
+  
+  <div class="container">
+    <p>Click the button below to generate all required icon sizes for the Chrome extension.</p>
+    
+    <div class="preview">
+      <canvas id="preview16" width="16" height="16"></canvas>
+      <canvas id="preview32" width="32" height="32"></canvas>
+      <canvas id="preview48" width="48" height="48"></canvas>
+      <canvas id="preview128" width="128" height="128"></canvas>
+    </div>
+    
+    <button onclick="generateAllIcons()">Generate & Download All Icons</button>
+    
+    <div id="status"></div>
+  </div>
+
+  <div class="instructions">
+    <h3>📝 Instructions:</h3>
+    <ol>
+      <li>Click the "Generate & Download All Icons" button above</li>
+      <li>4 PNG files will be downloaded to your Downloads folder</li>
+      <li>Move all 4 files to the <code>icons/</code> folder in your extension directory</li>
+      <li>Load the extension in Chrome at <code>chrome://extensions/</code></li>
+    </ol>
+  </div>
+
+  <script>
+    // Draw icon on canvas
+    function drawIcon(canvas, size) {
+      const ctx = canvas.getContext('2d');
+      
+      // Background
+      ctx.fillStyle = '#1db954';
+      ctx.fillRect(0, 0, size, size);
+      
+      // Chart-like design
+      const padding = size * 0.15;
+      const barWidth = (size - padding * 4) / 3;
+      const maxHeight = size - padding * 2;
+      
+      // Draw three bars (like a rising chart)
+      const bars = [
+        { x: padding, height: maxHeight * 0.5 },
+        { x: padding * 2 + barWidth, height: maxHeight * 0.7 },
+        { x: padding * 3 + barWidth * 2, height: maxHeight * 0.9 }
+      ];
+      
+      ctx.fillStyle = '#000000';
+      bars.forEach(bar => {
+        ctx.fillRect(
+          bar.x,
+          size - padding - bar.height,
+          barWidth,
+          bar.height
+        );
+      });
+      
+      // Add upward arrow
+      const arrowSize = size * 0.12;
+      const arrowX = size - padding - arrowSize;
+      const arrowY = padding;
+      
+      ctx.beginPath();
+      ctx.moveTo(arrowX + arrowSize / 2, arrowY);
+      ctx.lineTo(arrowX, arrowY + arrowSize);
+      ctx.lineTo(arrowX + arrowSize, arrowY + arrowSize);
+      ctx.closePath();
+      ctx.fill();
+    }
+    
+    // Generate and download icon
+    function downloadIcon(size) {
+      const canvas = document.createElement('canvas');
+      canvas.width = size;
+      canvas.height = size;
+      
+      drawIcon(canvas, size);
+      
+      return new Promise((resolve) => {
+        canvas.toBlob((blob) => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `icon${size}.png`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+          resolve();
+        });
+      });
+    }
+    
+    // Generate all icons
+    async function generateAllIcons() {
+      const status = document.getElementById('status');
+      status.innerHTML = '<p>Generating icons...</p>';
+      
+      const sizes = [16, 32, 48, 128];
+      
+      // Preview all sizes first
+      sizes.forEach(size => {
+        const canvas = document.getElementById(`preview${size}`);
+        drawIcon(canvas, size);
+      });
+      
+      // Download all sizes
+      for (const size of sizes) {
+        await downloadIcon(size);
+        await new Promise(resolve => setTimeout(resolve, 200)); // Small delay between downloads
+      }
+      
+      status.innerHTML = '<p class="success">✓ All icons generated! Check your Downloads folder.</p><p>Move the 4 PNG files to the icons/ folder in your extension directory.</p>';
+    }
+    
+    // Draw previews on load
+    window.onload = function() {
+      [16, 32, 48, 128].forEach(size => {
+        const canvas = document.getElementById(`preview${size}`);
+        drawIcon(canvas, size);
+      });
+    };
+  </script>
+</body>
+</html>
+

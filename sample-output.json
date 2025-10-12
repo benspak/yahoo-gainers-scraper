@@ -1,0 +1,179 @@
+{
+  "timestamp": "2025-10-12T10:30:00.000Z",
+  "source": "Yahoo Finance - Top Gainers",
+  "url": "https://finance.yahoo.com/markets/stocks/gainers/",
+  "totalStocks": 5,
+  "stocks": [
+    {
+      "symbol": "PTGX",
+      "name": "Protagonist Therapeutics, Inc.",
+      "price": {
+        "display": "87.00",
+        "raw": 87
+      },
+      "change": {
+        "display": "+19.96",
+        "raw": 19.96
+      },
+      "changePercent": {
+        "display": "+29.77%",
+        "raw": 29.773268
+      },
+      "volume": {
+        "display": "7.065M",
+        "raw": "7.065M"
+      },
+      "avgVolume3M": {
+        "display": "947,760",
+        "raw": "947,760"
+      },
+      "marketCap": {
+        "display": "5.412B",
+        "raw": "5.412B"
+      },
+      "peRatio": "119.18",
+      "fiftyTwoWeekChange": {
+        "display": "+87.70%",
+        "raw": 87.70226
+      },
+      "fiftyTwoWeekRange": "33.31 93.25"
+    },
+    {
+      "symbol": "APLD",
+      "name": "Applied Digital Corporation",
+      "price": {
+        "display": "33.99",
+        "raw": 33.99
+      },
+      "change": {
+        "display": "+4.70",
+        "raw": 4.700001
+      },
+      "changePercent": {
+        "display": "+16.05%",
+        "raw": 16.046434
+      },
+      "volume": {
+        "display": "108.028M",
+        "raw": "108.028M"
+      },
+      "avgVolume3M": {
+        "display": "32.179M",
+        "raw": "32.179M"
+      },
+      "marketCap": {
+        "display": "9.507B",
+        "raw": "9.507B"
+      },
+      "peRatio": "--",
+      "fiftyTwoWeekChange": {
+        "display": "+350.20%",
+        "raw": 350.1987
+      },
+      "fiftyTwoWeekRange": "3.31 39.07"
+    },
+    {
+      "symbol": "NAMS",
+      "name": "NewAmsterdam Pharma Company N.V.",
+      "price": {
+        "display": "37.05",
+        "raw": 37.05
+      },
+      "change": {
+        "display": "+4.04",
+        "raw": 4.044998
+      },
+      "changePercent": {
+        "display": "+12.26%",
+        "raw": 12.2557125
+      },
+      "volume": {
+        "display": "2.15M",
+        "raw": "2.15M"
+      },
+      "avgVolume3M": {
+        "display": "922,851",
+        "raw": "922,851"
+      },
+      "marketCap": {
+        "display": "4.173B",
+        "raw": "4.173B"
+      },
+      "peRatio": "--",
+      "fiftyTwoWeekChange": {
+        "display": "+93.37%",
+        "raw": 93.371605
+      },
+      "fiftyTwoWeekRange": "14.06 37.07"
+    },
+    {
+      "symbol": "MP",
+      "name": "MP Materials Corp.",
+      "price": {
+        "display": "78.34",
+        "raw": 78.34
+      },
+      "change": {
+        "display": "+6.05",
+        "raw": 6.05
+      },
+      "changePercent": {
+        "display": "+8.37%",
+        "raw": 8.36906
+      },
+      "volume": {
+        "display": "50.35M",
+        "raw": "50.35M"
+      },
+      "avgVolume3M": {
+        "display": "15.506M",
+        "raw": "15.506M"
+      },
+      "marketCap": {
+        "display": "13.874B",
+        "raw": "13.874B"
+      },
+      "peRatio": "--",
+      "fiftyTwoWeekChange": {
+        "display": "+341.10%",
+        "raw": 341.1036
+      },
+      "fiftyTwoWeekRange": "15.56 84.92"
+    },
+    {
+      "symbol": "UEC",
+      "name": "Uranium Energy Corp.",
+      "price": {
+        "display": "14.65",
+        "raw": 14.65
+      },
+      "change": {
+        "display": "+1.10",
+        "raw": 1.1
+      },
+      "changePercent": {
+        "display": "+8.12%",
+        "raw": 8.11808
+      },
+      "volume": {
+        "display": "31.984M",
+        "raw": "31.984M"
+      },
+      "avgVolume3M": {
+        "display": "16.012M",
+        "raw": "16.012M"
+      },
+      "marketCap": {
+        "display": "7.078B",
+        "raw": "7.078B"
+      },
+      "peRatio": "--",
+      "fiftyTwoWeekChange": {
+        "display": "+105.18%",
+        "raw": 105.182076
+      },
+      "fiftyTwoWeekRange": "3.85 15.86"
+    }
+  ]
+}
+
