@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Yahoo Finance Scraping</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-result { background: #f0f0f0; padding: 15px; margin: 10px 0; border-radius: 5px; }
+        .success { background: #d4edda; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; border: 1px solid #f5c6cb; }
+        pre { background: #f8f9fa; padding: 10px; border-radius: 3px; overflow-x: auto; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>Yahoo Finance Scraping Test</h1>
+    <p>This page tests the updated scraping logic with the new Yahoo Finance table structure.</p>
+
+    <button onclick="testScraping()">Test Scraping Logic</button>
+
+    <div id="results"></div>
+
+    <!-- Sample table structure matching the new Yahoo Finance format -->
+    <div class="tableContainer yf-2v9ias">
+        <div class="table-container cs-regular tw-border-none yf-1onk3zf">
+            <table class="yf-1onk3zf bd">
+                <thead class="yf-1onk3zf">
+                    <tr class="yf-1onk3zf">
+                        <th data-testid-header="ticker" class="[&_.symbol]:tw-text-md yf-1onk3zf so lpin shad">
+                            <div class="colCont yf-1onk3zf"> Symbol</div>
+                        </th>
+                        <th data-testid-header="companyshortname.raw" class="leftAlignHeader companyName yf-1onk3zf so">
+                            <div class="colCont yf-1onk3zf"> Name</div>
+                        </th>
+                        <th data-testid-header="intradayprice" class="yf-1onk3zf so">
+                            <div class="colCont yf-1onk3zf"> <div class="container yf-1is49wv"><span>Price</span> </div></div>
+                        </th>
+                        <th data-testid-header="intradaypricechange" class="yf-1onk3zf so">
+                            <div class="colCont yf-1onk3zf"> Change</div>
+                        </th>
+                        <th data-testid-header="percentchange" class="yf-1onk3zf so sorted">
+                            <div class="colCont yf-1onk3zf"><div aria-hidden="true" class="icon fin-icon inherit-icn sz-medium yf-sv6wwp"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></div> Change %</div>
+                        </th>
+                        <th data-testid-header="dayvolume" class="yf-1onk3zf so">
+                            <div class="colCont yf-1onk3zf"> Volume</div>
+                        </th>
+                        <th data-testid-header="avgdailyvol3m" class="yf-1onk3zf so">
+                            <div class="colCont yf-1onk3zf"> Avg Vol (3M)</div>
+                        </th>
+                        <th data-testid-header="intradaymarketcap" class="yf-1onk3zf so">
+                            <div class="colCont yf-1onk3zf"> Market Cap</div>
+                        </th>
+                        <th data-testid-header="peratio.lasttwelvemonths" class="yf-1onk3zf so">
+                            <div class="colCont yf-1onk3zf"> <div class="yf-10yevti"><span>P/E Ratio </span><span>(TTM) </span></div></div>
+                        </th>
+                        <th data-testid-header="fiftytwowkpercentchange" class="yf-1onk3zf so">
+                            <div class="colCont yf-1onk3zf"> <div class="yf-10yevti"><span>52 Wk </span><span>Change % </span></div></div>
+                        </th>
+                        <th data-testid-header="fiftyTwoWeekRange" class=" yf-1onk3zf">
+                            <div class="colCont yf-1onk3zf"> 52 Wk Range</div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="row yf-1onk3zf" data-testid="data-table-v2-row" data-testid-row="0">
+                        <td data-testid-cell="ticker" class="[&_.symbol]:tw-text-md yf-1onk3zf lpin shad" style="--_depth: false;">
+                            <div style="display: contents; --background-color: transparent; --hover-bg-color: transparent; --hover-color: var(--enabled-active-emph); --text-color: var(--enabled-active-emph); --hover-focus-color: var(--hovered-emph-same); --text-decoration: underline;">
+                                <span class="ticker-wrapper yf-90gdtp">
+                                    <a data-testid="table-cell-ticker" class="ticker medium [&_.symbol]:tw-text-md hover noPadding yf-90gdtp" aria-label="Six Flags Entertainment Corporation" data-ylk="elm:qte;elmt:link;itc:0;sec:stocks-datatable;slk:FUN" href="/quote/FUN/" title="Six Flags Entertainment Corporation">
+                                        <div class="name yf-90gdtp"><span class="symbol yf-90gdtp">FUN </span> </div>
+                                    </a>
+                                </span>
+                            </div>
+                        </td>
+                        <td data-testid-cell="companyshortname.raw" class="leftAlignHeader companyName yf-1onk3zf" style="--_depth: false;">
+                            <div title="Six Flags Entertainment Corporation" class="leftAlignHeader companyName yf-362rys enableMaxWidth">Six Flags Entertainment Corporation</div>
+                        </td>
+                        <td data-testid-cell="intradayprice" class=" yf-1onk3zf" style="--_depth: false;">
+                            <div class="">
+                                <fin-streamer data-test="change" data-symbol="FUN" data-field="regularMarketPrice" data-trend="none" data-value="25.63" active="">25.63</fin-streamer>
+                                <div class="hide-desktop hide-mw txt-positive">
+                                    <fin-streamer data-test="colorChange" data-field="regularMarketChange" data-trend="txt" data-value="3.86" active="">+3.86</fin-streamer>
+                                    <fin-streamer data-test="colorChange" data-template="({fmt})" data-field="regularMarketChangePercent" data-trend="txt" data-value="17.7308" active="">(+17.73%)</fin-streamer>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-testid-cell="intradaypricechange" class=" yf-1onk3zf" style="--_depth: false;">
+                            <fin-streamer data-test="colorChange" data-symbol="FUN" data-field="regularMarketChange" data-trend="txt" data-pricehint="2" data-value="3.86" data-tstyle="default" active=""><span class="txt-positive">+3.86</span></fin-streamer>
+                        </td>
+                        <td data-testid-cell="percentchange" class=" yf-1onk3zf" style="--_depth: false;">
+                            <fin-streamer data-test="colorChange" data-symbol="FUN" data-field="regularMarketChangePercent" data-trend="txt" data-pricehint="2" data-value="17.7308" data-tstyle="default" active=""><span class="txt-positive">+17.73%</span></fin-streamer>
+                        </td>
+                        <td data-testid-cell="dayvolume" class=" yf-1onk3zf" style="--_depth: false;">
+                            <fin-streamer data-test="change" data-symbol="FUN" data-field="regularMarketVolume" data-trend="none" data-value="15037062" active="">15.037M</fin-streamer>
+                        </td>
+                        <td data-testid-cell="avgdailyvol3m" class=" yf-1onk3zf" style="--_depth: false;">4.124M </td>
+                        <td data-testid-cell="intradaymarketcap" class=" yf-1onk3zf" style="--_depth: false;">
+                            <fin-streamer data-test="change" data-symbol="FUN" data-field="marketCap" data-trend="none" data-value="2595780685.0032806" active="">2.596B</fin-streamer>
+                        </td>
+                        <td data-testid-cell="peratio.lasttwelvemonths" class=" yf-1onk3zf" style="--_depth: false;">-- </td>
+                        <td data-testid-cell="fiftytwowkpercentchange" class=" yf-1onk3zf" style="--_depth: false;">
+                            <fin-streamer data-test="colorChange" data-symbol="FUN" data-field="fiftyTwoWeekChangePercent" data-trend="txt" data-pricehint="2" data-value="-45.42492" data-tstyle="default" active=""><span class="txt-negative">-45.42%</span></fin-streamer>
+                        </td>
+                        <td data-testid-cell="fiftyTwoWeekRange" class=" yf-1onk3zf" style="--_depth: false;">
+                            <div class="container yf-wummfw" role="img" aria-label="Graph showing stock performance over fifty two week range">
+                                <div class="line yf-wummfw" style="top: 11px;height: 2px;">
+                                    <div class="candle yf-wummfw" style="top: 0;height: 2px;left: 11.00px;width: 17px;"></div>
+                                    <svg width="8" height="10" viewBox="0 0 80 110" xmlns="http://www.w3.org/2000/svg" style="top: -12px; left: 25px;" class="yf-wummfw"><path d="M 0 40 A 40 40 0 0 1 80 40 L 40 110 Z"></path></svg>
+                                </div>
+                                <div class="labels yf-wummfw"><span>20.00</span> <span>49.77</span></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr class="row yf-1onk3zf" data-testid="data-table-v2-row" data-testid-row="1">
+                        <td data-testid-cell="ticker" class="[&_.symbol]:tw-text-md yf-1onk3zf lpin shad" style="--_depth: false;">
+                            <div style="display: contents; --background-color: transparent; --hover-bg-color: transparent; --hover-color: var(--enabled-active-emph); --text-color: var(--enabled-active-emph); --hover-focus-color: var(--hovered-emph-same); --text-decoration: underline;">
+                                <span class="ticker-wrapper yf-90gdtp">
+                                    <a data-testid="table-cell-ticker" class="ticker medium [&_.symbol]:tw-text-md hover noPadding yf-90gdtp" aria-label="General Motors Company" data-ylk="elm:qte;elmt:link;itc:0;sec:stocks-datatable;slk:GM" href="/quote/GM/" title="General Motors Company">
+                                        <div class="name yf-90gdtp"><span class="symbol yf-90gdtp">GM </span> </div>
+                                    </a>
+                                </span>
+                            </div>
+                        </td>
+                        <td data-testid-cell="companyshortname.raw" class="leftAlignHeader companyName yf-1onk3zf" style="--_depth: false;">
+                            <div title="General Motors Company" class="leftAlignHeader companyName yf-362rys enableMaxWidth">General Motors Company</div>
+                        </td>
+                        <td data-testid-cell="intradayprice" class=" yf-1onk3zf" style="--_depth: false;">
+                            <div class="">
+                                <fin-streamer data-test="change" data-symbol="GM" data-field="regularMarketPrice" data-trend="none" data-value="66.62" active="">66.62</fin-streamer>
+                                <div class="hide-desktop hide-mw txt-positive">
+                                    <fin-streamer data-test="colorChange" data-field="regularMarketChange" data-trend="txt" data-value="8.62" active="">+8.62</fin-streamer>
+                                    <fin-streamer data-test="colorChange" data-template="({fmt})" data-field="regularMarketChangePercent" data-trend="txt" data-value="14.8621" active="">(+14.86%)</fin-streamer>
+                                </div>
+                            </div>
+                        </td>
+                        <td data-testid-cell="intradaypricechange" class=" yf-1onk3zf" style="--_depth: false;">
+                            <fin-streamer data-test="colorChange" data-symbol="GM" data-field="regularMarketChange" data-trend="txt" data-pricehint="2" data-value="8.62" data-tstyle="default" active=""><span class="txt-positive">+8.62</span></fin-streamer>
+                        </td>
+                        <td data-testid-cell="percentchange" class=" yf-1onk3zf" style="--_depth: false;">
+                            <fin-streamer data-test="colorChange" data-symbol="GM" data-field="regularMarketChangePercent" data-trend="txt" data-pricehint="2" data-value="14.8621" data-tstyle="default" active=""><span class="txt-positive">+14.86%</span></fin-streamer>
+                        </td>
+                        <td data-testid-cell="dayvolume" class=" yf-1onk3zf" style="--_depth: false;">
+                            <fin-streamer data-test="change" data-symbol="GM" data-field="regularMarketVolume" data-trend="none" data-value="41072816" active="">41.073M</fin-streamer>
+                        </td>
+                        <td data-testid-cell="avgdailyvol3m" class=" yf-1onk3zf" style="--_depth: false;">8.149M </td>
+                        <td data-testid-cell="intradaymarketcap" class=" yf-1onk3zf" style="--_depth: false;">
+                            <fin-streamer data-test="change" data-symbol="GM" data-field="marketCap" data-trend="none" data-value="63427438974.96033" active="">63.427B</fin-streamer>
+                        </td>
+                        <td data-testid-cell="peratio.lasttwelvemonths" class=" yf-1onk3zf" style="--_depth: false;">9.40 </td>
+                        <td data-testid-cell="fiftytwowkpercentchange" class=" yf-1onk3zf" style="--_depth: false;">
+                            <fin-streamer data-test="colorChange" data-symbol="GM" data-field="fiftyTwoWeekChangePercent" data-trend="txt" data-pricehint="2" data-value="7.947147" data-tstyle="default" active=""><span class="txt-positive">+7.95%</span></fin-streamer>
+                        </td>
+                        <td data-testid-cell="fiftyTwoWeekRange" class=" yf-1onk3zf" style="--_depth: false;">
+                            <div class="container yf-wummfw" role="img" aria-label="Graph showing stock performance over fifty two week range">
+                                <div class="line yf-wummfw" style="top: 11px;height: 2px;">
+                                    <div class="candle yf-wummfw" style="top: 0;height: 2px;left: 148.00px;width: 18px;"></div>
+                                    <svg width="8" height="10" viewBox="0 0 80 110" xmlns="http://www.w3.org/2000/svg" style="top: -12px; left: 163px;" class="yf-wummfw"><path d="M 0 40 A 40 40 0 0 1 80 40 L 40 110 Z"></path></svg>
+                                </div>
+                                <div class="labels yf-wummfw"><span>41.60</span> <span>62.14</span></div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Copy the scraping function from popup.js for testing
+        function scrapeYahooGainers() {
+            try {
+                const stocks = [];
+
+                // Find the table with the specific class (updated for new structure)
+                const table = document.querySelector('table.yf-1onk3zf');
+
+                if (!table) {
+                    return { error: 'Table not found. Make sure you\'re on the Yahoo Finance Gainers page.' };
+                }
+
+                // Get all rows from tbody using new data-testid attribute
+                const rows = table.querySelectorAll('tbody tr[data-testid="data-table-v2-row"]');
+
+                if (rows.length === 0) {
+                    return { error: 'No stock data found in the table.' };
+                }
+
+                rows.forEach((row) => {
+                    try {
+                        // Helper function to safely get text content
+                        const getText = (selector) => {
+                            const element = row.querySelector(selector);
+                            return element ? element.textContent.trim() : '--';
+                        };
+
+                        // Helper function to parse numeric values
+                        const parseNumeric = (value) => {
+                            if (!value || value === '--') return null;
+                            // Remove commas, dollar signs, and other formatting
+                            return value.replace(/[$,]/g, '');
+                        };
+
+                        // Extract data from each cell using updated selectors
+                        const symbol = getText('td[data-testid-cell="ticker"] .symbol');
+                        const name = getText('td[data-testid-cell="companyshortname.raw"]');
+                        const price = getText('td[data-testid-cell="intradayprice"] fin-streamer[data-field="regularMarketPrice"]');
+                        const change = getText('td[data-testid-cell="intradaypricechange"] fin-streamer[data-field="regularMarketChange"]');
+                        const changePercent = getText('td[data-testid-cell="percentchange"] fin-streamer[data-field="regularMarketChangePercent"]');
+                        const volume = getText('td[data-testid-cell="dayvolume"] fin-streamer[data-field="regularMarketVolume"]');
+                        const avgVolume = getText('td[data-testid-cell="avgdailyvol3m"]');
+                        const marketCap = getText('td[data-testid-cell="intradaymarketcap"] fin-streamer[data-field="marketCap"]');
+                        const peRatio = getText('td[data-testid-cell="peratio.lasttwelvemonths"]');
+                        const fiftyTwoWeekChange = getText('td[data-testid-cell="fiftytwowkpercentchange"] fin-streamer[data-field="fiftyTwoWeekChangePercent"]');
+                        const fiftyTwoWeekRange = getText('td[data-testid-cell="fiftyTwoWeekRange"] .labels');
+
+                        // Get raw numeric values from data attributes if available
+                        const priceRaw = row.querySelector('td[data-testid-cell="intradayprice"] fin-streamer[data-field="regularMarketPrice"]')?.getAttribute('data-value');
+                        const changeRaw = row.querySelector('td[data-testid-cell="intradaypricechange"] fin-streamer[data-field="regularMarketChange"]')?.getAttribute('data-value');
+                        const changePercentRaw = row.querySelector('td[data-testid-cell="percentchange"] fin-streamer[data-field="regularMarketChangePercent"]')?.getAttribute('data-value');
+                        const volumeRaw = row.querySelector('td[data-testid-cell="dayvolume"] fin-streamer[data-field="regularMarketVolume"]')?.getAttribute('data-value');
+                        const marketCapRaw = row.querySelector('td[data-testid-cell="intradaymarketcap"] fin-streamer[data-field="marketCap"]')?.getAttribute('data-value');
+                        const fiftyTwoWeekChangeRaw = row.querySelector('td[data-testid-cell="fiftytwowkpercentchange"] fin-streamer[data-field="fiftyTwoWeekChangePercent"]')?.getAttribute('data-value');
+
+                        const stock = {
+                            symbol: symbol || 'N/A',
+                            name: name || 'N/A',
+                            price: {
+                                display: price,
+                                raw: priceRaw ? parseFloat(priceRaw) : parseNumeric(price)
+                            },
+                            change: {
+                                display: change,
+                                raw: changeRaw ? parseFloat(changeRaw) : parseNumeric(change)
+                            },
+                            changePercent: {
+                                display: changePercent,
+                                raw: changePercentRaw ? parseFloat(changePercentRaw) : parseNumeric(changePercent.replace(/[()%]/g, ''))
+                            },
+                            volume: {
+                                display: volume,
+                                raw: volumeRaw ? parseFloat(volumeRaw) : parseNumeric(volume)
+                            },
+                            avgVolume3M: {
+                                display: avgVolume,
+                                raw: parseNumeric(avgVolume)
+                            },
+                            marketCap: {
+                                display: marketCap,
+                                raw: marketCapRaw ? parseFloat(marketCapRaw) : parseNumeric(marketCap)
+                            },
+                            peRatio: peRatio,
+                            fiftyTwoWeekChange: {
+                                display: fiftyTwoWeekChange,
+                                raw: fiftyTwoWeekChangeRaw ? parseFloat(fiftyTwoWeekChangeRaw) : parseNumeric(fiftyTwoWeekChange.replace(/[()%]/g, ''))
+                            },
+                            fiftyTwoWeekRange: fiftyTwoWeekRange
+                        };
+
+                        stocks.push(stock);
+                    } catch (err) {
+                        console.error('Error parsing row:', err);
+                    }
+                });
+
+                return {
+                    timestamp: new Date().toISOString(),
+                    source: 'Yahoo Finance - Top Gainers',
+                    url: window.location.href,
+                    totalStocks: stocks.length,
+                    stocks: stocks
+                };
+
+            } catch (err) {
+                return { error: `Scraping error: ${err.message}` };
+            }
+        }
+
+        function testScraping() {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '<div class="test-result">Testing scraping logic...</div>';
+
+            try {
+                const result = scrapeYahooGainers();
+
+                if (result.error) {
+                    resultsDiv.innerHTML = `<div class="test-result error">
+                        <h3>❌ Test Failed</h3>
+                        <p><strong>Error:</strong> ${result.error}</p>
+                    </div>`;
+                } else {
+                    resultsDiv.innerHTML = `<div class="test-result success">
+                        <h3>✅ Test Passed</h3>
+                        <p><strong>Stocks Found:</strong> ${result.totalStocks}</p>
+                        <p><strong>Timestamp:</strong> ${result.timestamp}</p>
+                        <details>
+                            <summary>View Scraped Data</summary>
+                            <pre>${JSON.stringify(result, null, 2)}</pre>
+                        </details>
+                    </div>`;
+                }
+            } catch (err) {
+                resultsDiv.innerHTML = `<div class="test-result error">
+                    <h3>❌ Test Failed</h3>
+                    <p><strong>Error:</strong> ${err.message}</p>
+                </div>`;
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Yahoo Finance Gainers Scraper",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Scrape top stock gainers from Yahoo Finance and export to JSON",
   "permissions": [
     "activeTab",
@@ -26,4 +26,3 @@
     "128": "icons/icon128.png"
   }
 }
-

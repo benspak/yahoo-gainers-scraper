@@ -127,15 +127,15 @@ function scrapeYahooGainers() {
   try {
     const stocks = [];
 
-    // Find the table with the specific class
-    const table = document.querySelector('table.yf-1bwepqw');
+    // Find the table with the specific class (updated for new structure)
+    const table = document.querySelector('table.yf-1onk3zf');
 
     if (!table) {
       return { error: 'Table not found. Make sure you\'re on the Yahoo Finance Gainers page.' };
     }
 
-    // Get all rows from tbody
-    const rows = table.querySelectorAll('tbody tr.row');
+    // Get all rows from tbody using new data-testid attribute
+    const rows = table.querySelectorAll('tbody tr[data-testid="data-table-v2-row"]');
 
     if (rows.length === 0) {
       return { error: 'No stock data found in the table.' };
@@ -156,9 +156,9 @@ function scrapeYahooGainers() {
           return value.replace(/[$,]/g, '');
         };
 
-        // Extract data from each cell
+        // Extract data from each cell using updated selectors
         const symbol = getText('td[data-testid-cell="ticker"] .symbol');
-        const name = getText('td[data-testid-cell="companyshortname.raw"] .companyName');
+        const name = getText('td[data-testid-cell="companyshortname.raw"]');
         const price = getText('td[data-testid-cell="intradayprice"] fin-streamer[data-field="regularMarketPrice"]');
         const change = getText('td[data-testid-cell="intradaypricechange"] fin-streamer[data-field="regularMarketChange"]');
         const changePercent = getText('td[data-testid-cell="percentchange"] fin-streamer[data-field="regularMarketChangePercent"]');
@@ -173,6 +173,9 @@ function scrapeYahooGainers() {
         const priceRaw = row.querySelector('td[data-testid-cell="intradayprice"] fin-streamer[data-field="regularMarketPrice"]')?.getAttribute('data-value');
         const changeRaw = row.querySelector('td[data-testid-cell="intradaypricechange"] fin-streamer[data-field="regularMarketChange"]')?.getAttribute('data-value');
         const changePercentRaw = row.querySelector('td[data-testid-cell="percentchange"] fin-streamer[data-field="regularMarketChangePercent"]')?.getAttribute('data-value');
+        const volumeRaw = row.querySelector('td[data-testid-cell="dayvolume"] fin-streamer[data-field="regularMarketVolume"]')?.getAttribute('data-value');
+        const marketCapRaw = row.querySelector('td[data-testid-cell="intradaymarketcap"] fin-streamer[data-field="marketCap"]')?.getAttribute('data-value');
+        const fiftyTwoWeekChangeRaw = row.querySelector('td[data-testid-cell="fiftytwowkpercentchange"] fin-streamer[data-field="fiftyTwoWeekChangePercent"]')?.getAttribute('data-value');
 
         const stock = {
           symbol: symbol || 'N/A',
@@ -191,20 +194,20 @@ function scrapeYahooGainers() {
           },
           volume: {
             display: volume,
-            raw: volume
+            raw: volumeRaw ? parseFloat(volumeRaw) : parseNumeric(volume)
           },
           avgVolume3M: {
             display: avgVolume,
-            raw: avgVolume
+            raw: parseNumeric(avgVolume)
           },
           marketCap: {
             display: marketCap,
-            raw: marketCap
+            raw: marketCapRaw ? parseFloat(marketCapRaw) : parseNumeric(marketCap)
           },
           peRatio: peRatio,
           fiftyTwoWeekChange: {
             display: fiftyTwoWeekChange,
-            raw: parseNumeric(fiftyTwoWeekChange.replace(/[()%]/g, ''))
+            raw: fiftyTwoWeekChangeRaw ? parseFloat(fiftyTwoWeekChangeRaw) : parseNumeric(fiftyTwoWeekChange.replace(/[()%]/g, ''))
           },
           fiftyTwoWeekRange: fiftyTwoWeekRange
         };
